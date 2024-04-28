@@ -1,0 +1,100 @@
+[gd_scene load_steps=14 format=3 uid="uid://c8pkc48iqhd1r"]
+
+[ext_resource type="PackedScene" uid="uid://buep24spngl00" path="res://table.glb" id="1_xwoe2"]
+[ext_resource type="Script" path="res://PlayerController.gd" id="2_jsd5q"]
+[ext_resource type="PackedScene" uid="uid://bwabckoyq7cu0" path="res://TV/TV.gltf" id="2_m7sd1"]
+[ext_resource type="PackedScene" uid="uid://oklmulchio6b" path="res://tv.tscn" id="3_tofcp"]
+[ext_resource type="Shader" path="res://static.gdshader" id="4_mmn17"]
+[ext_resource type="Shader" path="res://screen.gdshader" id="4_x2oqu"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ehbry"]
+viewport_path = NodePath("Test/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4xmr7"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("4_x2oqu")
+shader_parameter/view_texture = SubResource("ViewportTexture_ehbry")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_oe2b6"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_4xmr7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_36os8"]
+render_priority = 0
+shader = ExtResource("4_mmn17")
+shader_parameter/albedo = Color(0.321569, 0.321569, 0.321569, 1)
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/alpha_scissor_threshold = 0.0
+shader_parameter/roughness = null
+shader_parameter/point_size = null
+shader_parameter/uv1_scale = null
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = null
+shader_parameter/uv2_offset = null
+shader_parameter/speed = 5.0
+shader_parameter/frequency_uniform = 30.0
+shader_parameter/is_breath = false
+shader_parameter/breath_speed = 0.368
+shader_parameter/breath_freq = 0.021
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_m62l3"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_36os8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wvjp6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rawiy"]
+material = SubResource("StandardMaterial3D_wvjp6")
+flip_faces = true
+size = Vector3(4.5, 5, 5)
+
+[node name="Office" type="Node3D"]
+
+[node name="table" parent="." instance=ExtResource("1_xwoe2")]
+transform = Transform3D(1.81, 0, 0, 0, 0.95, 0, 0, 0, 1.805, -0.032901, 0, -1.49667)
+
+[node name="TV 1" parent="table" instance=ExtResource("2_m7sd1")]
+transform = Transform3D(0.509354, 0, 0.215017, 0, 1.05263, 0, -0.214601, 0, 0.510341, -0.236, 0.782, -0.12)
+
+[node name="TV 2" parent="table" instance=ExtResource("2_m7sd1")]
+transform = Transform3D(0.509529, 0, -0.214601, 0, 1.05263, 0, 0.214186, 0, 0.510516, 0.23578, 0.782, -0.12)
+
+[node name="MAIN TV" parent="table" instance=ExtResource("3_tofcp")]
+transform = Transform3D(0.552716, 0, 0, 0, 1.05263, 0, 0, 0, 0.553787, 0.0121886, 1.25732, -0.12)
+
+[node name="Camera3D" parent="table/MAIN TV/Test/SubViewport" index="0"]
+transform = Transform3D(0.731794, -0.0976056, 0.674501, -9.27173e-10, 0.989691, 0.143216, -0.681526, -0.104805, 0.72425, 1.20944, 1.26897, -0.536909)
+
+[node name="SCREEN OVVERIDE" parent="table/MAIN TV/Screen" index="0"]
+mesh = SubResource("PlaneMesh_oe2b6")
+
+[node name="STATIC" parent="table/MAIN TV/Screen" index="1"]
+mesh = SubResource("PlaneMesh_m62l3")
+
+[node name="Player" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.970855, 0.239669, 0, -0.239669, 0.970855, 0, 1.53922, 0)
+script = ExtResource("2_jsd5q")
+turn_delay = 0.4
+start = 1
+left = Vector3(0, 1, 0)
+neutral = Vector3(-0.582, 0, 0)
+right = Vector3(0, -1, 0)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Player"]
+light_energy = 0.0
+spot_attenuation = 2.73208
+spot_angle = 33.3771
+
+[node name="Shell" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+mesh = SubResource("BoxMesh_rawiy")
+skeleton = NodePath("../..")
+
+[node name="OfficeLight" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0436717, 0.999046, 0, -0.999046, 0.0436717, 0, 3.13791, -1.22123)
+light_color = Color(0.831373, 0.545098, 0.290196, 1)
+spot_angle = 22.6238
+
+[editable path="table/MAIN TV"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://csb6ybocajguj"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_4jylc"]
+[ext_resource type="PackedScene" uid="uid://c8pkc48iqhd1r" path="res://office.tscn" id="1_mcwf7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d3wgy"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+sky_energy_multiplier = 0.0
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_6rtld"]
+sky_material = SubResource("ProceduralSkyMaterial_d3wgy")
+
+[sub_resource type="Environment" id="Environment_3fabr"]
+background_mode = 2
+background_energy_multiplier = 0.0
+sky = SubResource("Sky_6rtld")
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_4jylc")
+
+[node name="World" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
+environment = SubResource("Environment_3fabr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+light_energy = 0.0
+light_indirect_energy = 0.0
+light_volumetric_fog_energy = 0.0
+sky_mode = 2
+
+[node name="Cams" type="Node" parent="."]
+
+[node name="DEBUG" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32422, 0)
+light_specular = 1.389
+omni_range = 100.0
+
+[node name="Office" parent="." instance=ExtResource("1_mcwf7")]

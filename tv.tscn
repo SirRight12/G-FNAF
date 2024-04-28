@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://oklmulchio6b"]
+
+[ext_resource type="PackedScene" uid="uid://bwabckoyq7cu0" path="res://TV/TV.gltf" id="1_lvlfi"]
+[ext_resource type="Shader" path="res://screen.gdshader" id="2_4ru4d"]
+[ext_resource type="Shader" path="res://static.gdshader" id="3_7w50l"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_lo3aa"]
+viewport_path = NodePath("Test/SubViewport")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kxfk0"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("2_4ru4d")
+shader_parameter/view_texture = SubResource("ViewportTexture_lo3aa")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_eoc3p"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_kxfk0")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_36os8"]
+render_priority = 0
+shader = ExtResource("3_7w50l")
+shader_parameter/albedo = Color(0.321569, 0.321569, 0.321569, 1)
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/alpha_scissor_threshold = 0.0
+shader_parameter/roughness = null
+shader_parameter/point_size = null
+shader_parameter/uv1_scale = null
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = null
+shader_parameter/uv2_offset = null
+shader_parameter/speed = 5.0
+shader_parameter/frequency_uniform = 30.0
+shader_parameter/is_breath = false
+shader_parameter/breath_speed = 0.368
+shader_parameter/breath_freq = 0.021
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_1avdc"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_36os8")
+
+[node name="TV" instance=ExtResource("1_lvlfi")]
+
+[node name="Test" type="Node" parent="." index="1"]
+
+[node name="SubViewport" type="SubViewport" parent="Test" index="0"]
+
+[node name="Camera3D" type="Camera3D" parent="Test/SubViewport" index="0"]
+transform = Transform3D(-0.995544, -0.0135052, 0.0933273, 0, 0.989691, 0.143216, -0.0942994, 0.142578, -0.985281, 0, 0.436029, -1.79807)
+
+[node name="Screen" type="Node3D" parent="." index="2"]
+
+[node name="SCREEN OVVERIDE" type="MeshInstance3D" parent="Screen" index="0"]
+transform = Transform3D(-0.21, 1.18021e-08, -6.55671e-09, -9.17939e-09, 2.57943e-16, 0.15, 1.83588e-08, 0.135, 2.86603e-16, -0.0611388, 0.262675, 0.194044)
+mesh = SubResource("PlaneMesh_eoc3p")
+skeleton = NodePath("../..")
+
+[node name="STATIC" type="MeshInstance3D" parent="Screen" index="1"]
+transform = Transform3D(-0.21, 1.18021e-08, -6.55671e-09, -9.17939e-09, 2.57943e-16, 0.15, 1.83588e-08, 0.135, 2.86603e-16, -0.0611388, 0.262675, 0.194044)
+mesh = SubResource("PlaneMesh_1avdc")
+skeleton = NodePath("../..")
