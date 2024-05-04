@@ -2,21 +2,11 @@
 
 [ext_resource type="Script" path="res://main.gd" id="1_4jylc"]
 [ext_resource type="PackedScene" uid="uid://c8pkc48iqhd1r" path="res://office.tscn" id="1_mcwf7"]
+[ext_resource type="PackedScene" uid="uid://dxc8hw32w1dop" path="res://cam_1_room.tscn" id="2_j8fag"]
+[ext_resource type="PackedScene" uid="uid://chg4ov0vr3fxo" path="res://world.tscn" id="3_8mylt"]
 [ext_resource type="Shader" path="res://screen.gdshader" id="3_73pww"]
 [ext_resource type="Shader" path="res://static.gdshader" id="4_t5fqm"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d3wgy"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-sky_energy_multiplier = 0.0
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_6rtld"]
-sky_material = SubResource("ProceduralSkyMaterial_d3wgy")
-
-[sub_resource type="Environment" id="Environment_3fabr"]
-background_mode = 2
-background_energy_multiplier = 0.0
-sky = SubResource("Sky_6rtld")
+[ext_resource type="Script" path="res://CameraPan.gd" id="4_x3rkc"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_1tucc"]
 viewport_path = NodePath("Cams/Camera 1")
@@ -57,27 +47,32 @@ material = SubResource("ShaderMaterial_36os8")
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_4jylc")
 
-[node name="World" type="Node3D" parent="."]
+[node name="Cam1 Room" parent="." instance=ExtResource("2_j8fag")]
+transform = Transform3D(-2.18557e-08, 1.74393e-16, 0.5, 1.74393e-16, 0.5, -1.74393e-16, -0.5, 1.74393e-16, -2.18557e-08, -23.4714, 0, -3.06984)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="World"]
-environment = SubResource("Environment_3fabr")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="World"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-light_energy = 0.0
-light_indirect_energy = 0.0
-light_volumetric_fog_energy = 0.0
-sky_mode = 2
+[node name="World" parent="." instance=ExtResource("3_8mylt")]
 
 [node name="Cams" type="Node" parent="."]
 
 [node name="Camera 1" type="SubViewport" parent="Cams"]
 
 [node name="Camera3D" type="Camera3D" parent="Cams/Camera 1"]
-transform = Transform3D(0.92521, 0, 0.379456, 0, 1, 0, -0.379456, 0, 0.92521, 1.052, 1.466, 0)
+transform = Transform3D(0.699663, -0.301949, 0.647532, 3.16108e-16, 0.906308, 0.422618, -0.714473, -0.295691, 0.63411, -21.3981, 3.75944, -0.913467)
+script = ExtResource("4_x3rkc")
+left_offset = -0.5
+right_offset = 0.5
+dur = 3.0
+delay = 2.0
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Cams/Camera 1"]
+transform = Transform3D(0.703395, -0.300397, 0.644203, 3.16108e-16, 0.906308, 0.422618, -0.710799, -0.297267, 0.637492, -21.3981, 3.75944, -0.913467)
+light_energy = 3.05
+spot_range = 10.0
+spot_angle = 25.2
 
 [node name="DEBUG" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32422, 0)
+visible = false
 light_specular = 1.389
 omni_range = 100.0
 

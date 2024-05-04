@@ -11,8 +11,8 @@ func _ready():
 	set_to_place()
 	var timer = timeout(2)
 	await timer.timeout
-	print("hello?")
-	
+func look_to_cams():
+	pass
 func _on_left():
 	light.light_energy = 1.0
 func _on_right():
@@ -31,7 +31,6 @@ func handle_turning(event):
 	if !can_turn: return
 #	Left
 	if px < .2:
-		print("left")
 		var prev_place = place
 		turned = true
 		place -= 1
@@ -52,7 +51,6 @@ func handle_turning(event):
 		timer.timeout.connect(refresh_turn)
 		set_to_place()
 func refresh_turn():
-	print("refresh")
 	can_turn = true
 func timeout(time:float):
 	var timer = get_tree().create_timer(time)

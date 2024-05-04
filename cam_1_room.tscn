@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxc8hw32w1dop"]
+
+[ext_resource type="PackedScene" uid="uid://ch0bk7pgouait" path="res://round_table/round_wooden_table_01_1k.gltf" id="1_ut1bg"]
+[ext_resource type="PackedScene" uid="uid://bhyay2nkasmew" path="res://utility_box/utility_box_02_1k.gltf" id="2_uxvdm"]
+[ext_resource type="PackedScene" uid="uid://hvqh853o51m4" path="res://cash_register/CashRegister_01_1k.gltf" id="3_sew8i"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_u8e4l"]
+flip_faces = true
+size = Vector3(10, 10, 10)
+
+[node name="Cam1 Room" type="Node3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 5, 2.08165e-12)
+mesh = SubResource("BoxMesh_u8e4l")
+
+[node name="round_wooden_table_01_1k" parent="." instance=ExtResource("1_ut1bg")]
+transform = Transform3D(2, 0, 0, 0, 1, 0, 0, 0, 2, 0.237354, 4.76837e-07, -1.51433)
+
+[node name="utility_box_02_1k" parent="." instance=ExtResource("2_uxvdm")]
+transform = Transform3D(2.4, -9.06846e-16, 6.97574e-16, 8.37089e-16, 2.6, -6.97574e-16, -8.37089e-16, 9.06846e-16, 2, 2.17779, 1.19209e-07, -4.76113)
+
+[node name="CashRegister_01_1k" parent="." instance=ExtResource("3_sew8i")]
+transform = Transform3D(1.02131, 0, -1.0986, 0, 1.5, 0, 1.0986, 0, 1.02131, 0.196544, 1.01517, -1.49759)
