@@ -3,6 +3,7 @@ class_name PlayerController
 var can_turn = true
 @export var turn_delay = 0.1
 @onready var light:SpotLight3D = $SpotLight3D
+var in_cams = false
 func _ready():
 	on_left.connect(_on_left)
 	on_right.connect(_on_right)

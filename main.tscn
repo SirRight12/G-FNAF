@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://csb6ybocajguj"]
+[gd_scene load_steps=13 format=3 uid="uid://csb6ybocajguj"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_4jylc"]
 [ext_resource type="PackedScene" uid="uid://c8pkc48iqhd1r" path="res://office.tscn" id="1_mcwf7"]
+[ext_resource type="Shader" path="res://screen.gdshader" id="3_73pww"]
+[ext_resource type="Shader" path="res://static.gdshader" id="4_t5fqm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_d3wgy"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -15,6 +17,42 @@ sky_material = SubResource("ProceduralSkyMaterial_d3wgy")
 background_mode = 2
 background_energy_multiplier = 0.0
 sky = SubResource("Sky_6rtld")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1tucc"]
+viewport_path = NodePath("Cams/Camera 1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tova1"]
+resource_local_to_scene = true
+render_priority = 0
+shader = ExtResource("3_73pww")
+shader_parameter/view_texture = SubResource("ViewportTexture_1tucc")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_755jk"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_tova1")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_36os8"]
+render_priority = 0
+shader = ExtResource("4_t5fqm")
+shader_parameter/albedo = Color(0.321569, 0.321569, 0.321569, 1)
+shader_parameter/specular = null
+shader_parameter/metallic = null
+shader_parameter/alpha_scissor_threshold = 0.0
+shader_parameter/roughness = null
+shader_parameter/point_size = null
+shader_parameter/uv1_scale = null
+shader_parameter/uv1_offset = null
+shader_parameter/uv2_scale = null
+shader_parameter/uv2_offset = null
+shader_parameter/speed = 5.0
+shader_parameter/frequency_uniform = 30.0
+shader_parameter/is_breath = false
+shader_parameter/breath_speed = 0.368
+shader_parameter/breath_freq = 0.021
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_b0kg2"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_36os8")
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_4jylc")
@@ -33,9 +71,26 @@ sky_mode = 2
 
 [node name="Cams" type="Node" parent="."]
 
+[node name="Camera 1" type="SubViewport" parent="Cams"]
+
+[node name="Camera3D" type="Camera3D" parent="Cams/Camera 1"]
+transform = Transform3D(0.92521, 0, 0.379456, 0, 1, 0, -0.379456, 0, 0.92521, 1.052, 1.466, 0)
+
 [node name="DEBUG" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.32422, 0)
 light_specular = 1.389
 omni_range = 100.0
 
 [node name="Office" parent="." instance=ExtResource("1_mcwf7")]
+
+[node name="Camera3D" parent="Office/table/MAIN TV/Test/SubViewport" index="0"]
+transform = Transform3D(0.731794, -0.0976057, 0.6745, -9.27173e-10, 0.989691, 0.143216, -0.681526, -0.104805, 0.72425, 2.20895, 1.01553, -0.990684)
+
+[node name="SCREEN OVVERIDE" parent="Office/table/MAIN TV/Screen" index="0"]
+mesh = SubResource("PlaneMesh_755jk")
+
+[node name="STATIC" parent="Office/table/MAIN TV/Screen" index="1"]
+mesh = SubResource("PlaneMesh_b0kg2")
+
+[editable path="Office"]
+[editable path="Office/table/MAIN TV"]
