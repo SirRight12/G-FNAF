@@ -1,11 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://oklmulchio6b"]
+[gd_scene load_steps=10 format=3 uid="uid://oklmulchio6b"]
 
 [ext_resource type="PackedScene" uid="uid://bwabckoyq7cu0" path="res://TV/TV.gltf" id="1_lvlfi"]
 [ext_resource type="Shader" path="res://screen.gdshader" id="2_4ru4d"]
+[ext_resource type="Script" path="res://TV.gd" id="2_bpdg6"]
 [ext_resource type="Shader" path="res://static.gdshader" id="3_7w50l"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_lo3aa"]
-viewport_path = NodePath("Test/SubViewport")
+viewport_path = NodePath("/root/@EditorNode@17167/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@62/@VBoxContainer@63/@PanelContainer@110/MainScreen/@CanvasItemEditor@9465/@VSplitContainer@9284/@HSplitContainer@9286/@HSplitContainer@9288/@Control@9289/@SubViewportContainer@9290/@SubViewport@9291/TV/SubViewport")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kxfk0"]
 resource_local_to_scene = true
@@ -41,15 +42,9 @@ resource_local_to_scene = true
 material = SubResource("ShaderMaterial_36os8")
 
 [node name="TV" instance=ExtResource("1_lvlfi")]
+script = ExtResource("2_bpdg6")
 
-[node name="Test" type="Node" parent="." index="1"]
-
-[node name="SubViewport" type="SubViewport" parent="Test" index="0"]
-
-[node name="Camera3D" type="Camera3D" parent="Test/SubViewport" index="0"]
-transform = Transform3D(-0.995544, -0.0135052, 0.0933273, 0, 0.989691, 0.143216, -0.0942994, 0.142578, -0.985281, 0, 0.436029, -1.79807)
-
-[node name="Screen" type="Node3D" parent="." index="2"]
+[node name="Screen" type="Node3D" parent="." index="1"]
 
 [node name="SCREEN OVVERIDE" type="MeshInstance3D" parent="Screen" index="0"]
 transform = Transform3D(-0.21, 1.18021e-08, -6.55671e-09, -9.17939e-09, 2.57943e-16, 0.15, 1.83588e-08, 0.135, 2.86603e-16, -0.0611388, 0.262675, 0.194044)

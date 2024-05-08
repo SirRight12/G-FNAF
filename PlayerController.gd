@@ -2,9 +2,13 @@ extends PlayerBase
 class_name PlayerController
 var can_turn = true
 @export var turn_delay = 0.1
+@onready var cams = $"../table/MAIN TV"
 @onready var light:SpotLight3D = $SpotLight3D
+@onready var player:AnimationPlayer = $Anim
 var in_cams = false
 func _ready():
+	look_to_cams()
+	return
 	on_left.connect(_on_left)
 	on_right.connect(_on_right)
 	on_neutral.connect(_on_neutral)
@@ -12,6 +16,12 @@ func _ready():
 	var timer = timeout(2)
 	await timer.timeout
 func look_to_cams():
+	print(cams)
+	player.play("to_cams")
+	await player.animation_finished
+	await timeout(.5)
+	cams.on()
+	can_turn = false
 	pass
 func _on_left():
 	light.light_energy = 1.0

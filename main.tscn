@@ -78,8 +78,8 @@ omni_range = 100.0
 
 [node name="Office" parent="." instance=ExtResource("1_mcwf7")]
 
-[node name="Camera3D" parent="Office/table/MAIN TV/Test/SubViewport" index="0"]
-transform = Transform3D(0.731794, -0.0976057, 0.6745, -9.27173e-10, 0.989691, 0.143216, -0.681526, -0.104805, 0.72425, 2.20895, 1.01553, -0.990684)
+[node name="Screen" parent="Office/table/MAIN TV" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0132149)
 
 [node name="SCREEN OVVERIDE" parent="Office/table/MAIN TV/Screen" index="0"]
 mesh = SubResource("PlaneMesh_755jk")
